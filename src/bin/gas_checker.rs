@@ -7,8 +7,8 @@ use eyre::Result;
 async fn main() -> Result<()> {
     dotenv::dotenv().ok();
 
-    // Get RPC URL from .env or use Base mainnet default
-    let rpc_url = env::var("RPC").unwrap_or_else(|_| "https://mainnet.base.org".to_string());
+    // Get RPC URL from .env
+    let rpc_url = env::var("RPC")?;
     let provider = Provider::<Http>::try_from(rpc_url)?;
 
     // Get latest block to get base fee
