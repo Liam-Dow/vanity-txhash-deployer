@@ -29,7 +29,7 @@ RPC=your_rpc_endpoint_url
 CHAIN_ID=your_chain_id
 HASH_PREFIX=desired_transaction_hash_prefix
 CALLDATA=your_contract_bytecode
-GAS_LIMIT=your_gas_limit
+GAS_LIMIT=your_gas_limit //maximum amount of gas you're willing to spend on the tx
 ```
 
 **Note:** Starting gas price for base and priority fee are set in `main.rs` (line 44 + 45), and each thread is offset by 0.1 gwei (see `THREAD_OFFSET_SPACING` line 21). These values worked well for me during testing on Base Sepolia - adjust as needed for the target EVM. 
