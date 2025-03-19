@@ -14,6 +14,7 @@ Note: The example provided above also includes a vanity contract address and a v
 ## Prerequisites
 
 - Rust and Cargo installed
+- Your EVM contract bytecode
 - EVM RPC endpoint
 - Private key for transaction signing
 
