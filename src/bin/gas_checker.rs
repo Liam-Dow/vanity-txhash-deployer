@@ -5,7 +5,7 @@ use eyre::Result;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    dotenv::dotenv().ok();
+    dotenv::from_filename("./.env").ok();
 
     // Get RPC URL from .env
     let rpc_url = env::var("RPC")?;
