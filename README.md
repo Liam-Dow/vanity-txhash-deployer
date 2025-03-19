@@ -1,8 +1,14 @@
-A high-performance Ethereum vanity transaction hash generator designed to brute-force transaction hashes for contract deployments on any EVM-compatible blockchain. It operates by incrementally adjusting the transaction's gas price by 1 wei per attempt, parallelised across multiple threads with a 0.1 gwei offset per thread—providing each worker thread with a total search space of 100,000,000 transaction hashes. Once your desired transaction hash is identified, the contract deployment transaction can be executed, leveraging the deterministic nature of EVM blockchains. Although it has no real-world application, it was an enjoyable project to develop.
+# Vanity Transaction Hash for Contract Deployment
+An Ethereum vanity transaction hash generator designed to brute-force transaction hashes for contract deployments on any EVM-compatible blockchain, leveraging the deterministic nature of the EVM.
 
-Example transaction: https://basescan.org/tx/0xba5ed2a73cd2123feeb6c6aa2599007c6d6164847453056e3670c52f14e8f6c2
+Functions by incrementally adjusting the transaction's gas price by 1 wei per attempt, parallelised across multiple threads with a 0.1 gwei offset per thread—providing each worker thread with a total search space of 100,000,000 transaction hashes. Once a matching transaction hash is found, the user is prompted to confirm and broadcast the transaction.
 
-Note: The example provided above also includes a vanity contract address and a vanity EOA, which are beyond the scope of this project. For generating the vanity contract address, I used [1inch's updated fork of profanity2](https://github.com/1inch/profanity2). I created a separate script for the EOA vanity address. However, in general, vanity EOAs are less secure than random addresses, so I wouldn't recommend using them.
+>Example transaction: \
+>https://basescan.org/tx/0xba5ed2a73cd2123feeb6c6aa2599007c6d6164847453056e3670c52f14e8f6c2 \
+> \
+>Note: The example provided above also includes a vanity contract address and a vanity EOA, which are not in the scope of this project. I used [1inch's updated (and secure) fork of profanity2](https://github.com/1inch/profanity2) to get the contract address and I created a different rust script to generate the EOA vanity address. However, in general, vanity EOAs are less secure than random addresses, so I wouldn't recommend using them.
+
+This tool doesn't really have any real-world application beyond "looking cool" onchain, but it was a fun hobby project to work on.
 
 ## Features
 
