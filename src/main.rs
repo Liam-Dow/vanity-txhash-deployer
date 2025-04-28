@@ -32,6 +32,7 @@ async fn main() -> eyre::Result<()> {
     let calldata = env::var("CALLDATA").ok();
     let gas_limit: U256 = env::var("GAS_LIMIT")?.parse::<u64>()?.into();
     let to_address = env::var("TO_ADDRESS").ok();
+    let transfer_amount: Option<U256> = env::var("TRANSFER_AMOUNT").ok().map(|v| v.parse::<u64>().unwrap().into());
 
     let wallet: LocalWallet = private_key.parse::<LocalWallet>()?.with_chain_id(chain_id);
     let provider = Provider::<Http>::try_from(rpc_url.clone())?;
@@ -47,11 +48,20 @@ async fn main() -> eyre::Result<()> {
 
     // Prepare transaction template
     let mut eip1559_tx = Eip1559TransactionRequest::new();
-    eip1559_tx.to = to_address.map(|addr| addr.parse::<Address>().unwrap());
-    eip1559_tx.data = calldata.map(|data| data.parse::<Bytes>().unwrap());
+    if let Some(amount) = transfer_amount {
+        eip1559_tx.value = Some(amount);
+    } else if let Some(data) = calldata {
+        eip1559_tx.data = Some(data.parse::<Bytes>().unwrap());
+    }
     eip1559_tx.nonce = Some(nonce);
     eip1559_tx.gas = Some(gas_limit);
     eip1559_tx.chain_id = Some(chain_id.into());
+
+    if transfer_amount.is_some() {
+        eip1559_tx.to = Some(to_address.expect("TO_ADDRESS is required for ETH transfer").parse::<Address>().unwrap());
+    } else {
+        eip1559_tx.to = to_address.map(|addr| addr.parse::<Address>().unwrap());
+    }
 
     println!("Starting parallel search for transaction hash with prefix: {}", hash_prefix);
 

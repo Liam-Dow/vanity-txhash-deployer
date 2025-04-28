@@ -44,6 +44,9 @@ This tool doesn't really have any real-world application beyond "looking cool" o
    GAS_LIMIT=set_your_max_spend
    # Optional, only required for contract deployments
    CALLDATA=your_contract_bytecode
+   # Optional, only required for ETH transfers
+   TO_ADDRESS=recipient_address
+   TRANSFER_AMOUNT=amount_in_wei
    ```
 
 ## Configuration
