@@ -1,6 +1,6 @@
-# Vanity Transaction Hash for Contract Deployment
+# Vanity Transaction Hash
 
-An Ethereum vanity transaction hash generator designed to brute-force transaction hashes for contract deployments on any EVM-compatible blockchain, leveraging the deterministic nature of the EVM.
+An Ethereum vanity transaction hash generator designed to brute-force transaction hashes for any transaction type, including contract deployments, on any EVM-compatible blockchain, leveraging the deterministic nature of the EVM.
 
 ## Overview
 
@@ -15,7 +15,7 @@ This tool doesn't really have any real-world application beyond "looking cool" o
 
 ## Features
 
-- Generate vanity transaction hashes for contract deployments
+- Generate vanity transaction hashes for any transaction type, including contract deployments
 - Parallel processing for faster hash generation
 - Compatible with any EVM that uses EIP-1559 for transaction fees
 - Gas price monitoring utility based on most recent block (gas_checker.rs)
@@ -23,7 +23,7 @@ This tool doesn't really have any real-world application beyond "looking cool" o
 ## Prerequisites
 
 - Rust and Cargo installed
-- Your EVM contract bytecode
+- Your EVM contract bytecode (if deploying a contract)
 - EVM RPC endpoint
 - Private key for transaction signing
 
@@ -41,8 +41,12 @@ This tool doesn't really have any real-world application beyond "looking cool" o
    RPC=your_rpc_endpoint_url
    CHAIN_ID=your_chain_id
    HASH_PREFIX=desired_transaction_hash_prefix
-   CALLDATA=your_contract_bytecode
    GAS_LIMIT=set_your_max_spend
+   # Optional, only required for contract deployments
+   CALLDATA=your_contract_bytecode
+   # Optional, only required for ETH transfers
+   TO_ADDRESS=recipient_address
+   TRANSFER_AMOUNT=amount_in_wei
    ```
 
 ## Configuration
@@ -58,11 +62,11 @@ Check current network gas prices and adjust main.rs if needed:
 cargo run --bin gas_checker
 ```
 
-### Vanity Contract Deployment
+### Vanity Transaction Generation
 
-Run the main program to deploy your contract with a custom transaction hash prefix:
+Run the main program to generate a transaction with a custom transaction hash prefix:
 ```bash
 cargo run
 ```
 
-Once a match is found you'll see the transaction hash, contract address and estimated gas cost in your console and need to confirm for the transaction to be broadcast.
+Once a match is found you'll see the transaction hash, contract address (if applicable), and estimated gas cost in your console and need to confirm for the transaction to be broadcast.
