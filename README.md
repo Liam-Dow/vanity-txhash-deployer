@@ -1,4 +1,4 @@
-# Vanity Transaction Hash
+# Generate Vanity Transaction Hashes
 
 An Ethereum vanity transaction hash generator designed to brute-force transaction hashes for any transaction type, including contract deployments, on any EVM-compatible blockchain, leveraging the deterministic nature of the EVM.
 
