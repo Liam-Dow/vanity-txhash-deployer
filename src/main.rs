@@ -29,8 +29,9 @@ async fn main() -> eyre::Result<()> {
     let rpc_url = env::var("RPC")?;
     let chain_id: u64 = env::var("CHAIN_ID")?.parse()?;
     let hash_prefix = env::var("HASH_PREFIX")?.to_lowercase();
-    let calldata = env::var("CALLDATA")?;
+    let calldata = env::var("CALLDATA").ok();
     let gas_limit: U256 = env::var("GAS_LIMIT")?.parse::<u64>()?.into();
+    let to_address = env::var("TO_ADDRESS").ok();
 
     let wallet: LocalWallet = private_key.parse::<LocalWallet>()?.with_chain_id(chain_id);
     let provider = Provider::<Http>::try_from(rpc_url.clone())?;
@@ -46,8 +47,8 @@ async fn main() -> eyre::Result<()> {
 
     // Prepare transaction template
     let mut eip1559_tx = Eip1559TransactionRequest::new();
-    eip1559_tx.to = None;
-    eip1559_tx.data = Some(calldata.parse::<Bytes>()?);
+    eip1559_tx.to = to_address.map(|addr| addr.parse::<Address>().unwrap());
+    eip1559_tx.data = calldata.map(|data| data.parse::<Bytes>().unwrap());
     eip1559_tx.nonce = Some(nonce);
     eip1559_tx.gas = Some(gas_limit);
     eip1559_tx.chain_id = Some(chain_id.into());
