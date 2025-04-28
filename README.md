@@ -31,7 +31,7 @@ This tool doesn't really have any real-world application beyond "looking cool" o
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/vanity-tx-hash.git
+   git clone https://github.com/Liam-Dow/vanity-txhash
    cd vanity-tx-hash
    ```
 
